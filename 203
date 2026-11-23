@@ -1,0 +1,27 @@
+import random
+import time
+
+# Generate 365 daily rainfall readings (in mm) between 0 and 50
+readings = [random.choice([0, 0, 5, 10, 15, 20, 25, 40]) for _ in range(365)]
+
+# 1. Weekly totals using slicing (chunks of 7 days)
+weekly_totals = [sum(readings[i:i+7]) for i in range(0, len(readings), 7)]
+
+# 2. Maximum and minimum with their positions
+max_rain = max(readings)
+min_rain = min(readings)
+max_day = readings.index(max_rain)
+min_day = readings.index(min_rain)
+
+# 3. 7-day moving average (Naive vs Running Sum)
+# Naive moving average
+naive_ma = []
+for i in range(len(readings) - 6):
+    window = readings[i:i+7]
+    naive_ma.append(sum(window) / 7)
+
+# 4. List dry days (0 mm)
+dry_days = [day for day, val in enumerate(readings) if val == 0]
+
+print(f"Total Weeks: {len(weekly_totals)}, Wettest Day: Day {max_day} ({max_rain}mm), Driest Day: Day {min_day} ({min_rain}mm)")
+print(f"Number of Dry Days: {len(dry_days)}")
