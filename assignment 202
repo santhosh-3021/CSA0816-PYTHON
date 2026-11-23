@@ -1,0 +1,23 @@
+# OTP Verification Simulation with loop-else and extra attempts
+def verify_otp_simulation():
+    correct_otp = "1234"
+    attempts = 3
+    extra_attempts = 0
+    total_allowed = attempts
+
+    # Main attempt loop using for with range
+    for attempt_num in range(1, total_allowed + 1 + extra_attempts):
+        user_input = input(f"Attempt {attempt_num}: Enter OTP (or blank to skip): ")
+        
+        if user_input == "":
+            print("Blank entry does not count as an attempt.")
+            continue  # does not consume an attempt count effectively if handled, or use pass
+            
+        if user_input == correct_otp:
+            print("Access Granted!")
+            break
+        else:
+            print("Incorrect OTP.")
+    else:
+        # Executes only if the loop finishes without hitting 'break'
+        print("Account locked for 30 minutes due to excessive failed attempts.")
